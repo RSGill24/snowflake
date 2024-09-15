@@ -1,0 +1,35 @@
+template:
+  name: clone to prod
+  type: Step
+  projectIdentifier: Iaac
+  orgIdentifier: default
+  spec:
+    type: ShellScript
+    spec:
+      shell: Bash
+      executionTarget: {}
+      source:
+        type: Inline
+        spec:
+          script: |-
+            echo -e "[connections.connection]\naccountname = <+pipeline.variables.account_name>\nusername = <+pipeline.variables.username>\npassword = <+secrets.getValue('snowflake_password')>" > ~/.snowsql/config
+
+            # Clone DB
+            echo "Executing command: CREATE DATABASE <+env.name>_<+stage.variables.DB_name> CLONE <+pipeline.stages.Create_non_prod_env.spec.env.name>_<+pipeline.stages.Create_non_prod_env.variables.DB_name>;"
+            snowsql -c connection -q "CREATE DATABASE <+env.name>_<+stage.variables.DB_name> CLONE <+pipeline.stages.Create_non_prod_env.spec.env.name>_<+pipeline.stages.Create_non_prod_env.variables.DB_name>;"
+
+            # Verify
+            # echo "Executing command: SHOW DATABASES LIKE '<+env.name>_<+stage.variables.DB_name>';"
+            # snowsql -c connection -q "SHOW DATABASES LIKE '<+env.name>_<+stage.variables.DB_name>';"
+
+            # Rename cloned objects
+            echo "
+
+            Executing command: USE DATABASE <+env.name>_<+stage.variables.DB_name>; ALTER SCHEMA <+pipeline.stages.Create_non_prod_env.spec.env.name>_<+pipeline.stages.Create_non_prod_env.variables.Schema_name> RENAME TO <+env.name>_<+stage.variables.Schema_name>;"
+            snowsql -c connection -q "USE DATABASE <+env.name>_<+stage.variables.DB_name>; ALTER SCHEMA <+pipeline.stages.Create_non_prod_env.spec.env.name>_<+pipeline.stages.Create_non_prod_env.variables.Schema_name> RENAME TO <+env.name>_<+stage.variables.Schema_name>;"
+      environmentVariables: []
+      outputVariables: []
+      delegateSelectors: []
+    timeout: 10m
+  identifier: clone_to_prod
+  versionLabel: v1
