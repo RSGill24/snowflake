@@ -1,8 +1,8 @@
-CREATE DATABASE &object_name;
+CREATE DATABASE {{db_name}};
 
-USE DATABASE &object_name; 
+USE DATABASE {{db_name}}; 
 
-CREATE SCHEMA &schema_name;
+CREATE SCHEMA {{schema_name}};
 
 CREATE TABLE employees (id INT, name STRING, department STRING, salary NUMBER);
 CREATE TABLE departments (dept_id INT, dept_name STRING, manager STRING);
