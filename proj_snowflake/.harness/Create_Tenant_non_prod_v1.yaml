@@ -1,7 +1,7 @@
 template:
   name: Create Tenant non prod
   type: Step
-  projectIdentifier: Iaac
+  projectIdentifier: snowflake
   orgIdentifier: default
   spec:
     type: ShellScript
