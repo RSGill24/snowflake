@@ -12,33 +12,10 @@ template:
         type: Inline
         spec:
           script: |-
-            # Number of schemas
-            echo "Total number of schemas in <+env.name>_<+stage.variables.DB_name>:"
-            snowsql -c connection -q "USE DATABASE <+env.name>_<+stage.variables.DB_name>; SELECT COUNT(*) AS number_of_schemas FROM information_schema.schemata WHERE schema_name != 'INFORMATION_SCHEMA';"
-
-            # Number of tables
-            echo "
-
-            Total number of table in <+env.name>_<+stage.variables.DB_name>:"
-            snowsql -c connection -q "USE DATABASE <+env.name>_<+stage.variables.DB_name>; SELECT COUNT(*) AS number_of_tables FROM information_schema.tables WHERE table_schema != 'INFORMATION_SCHEMA';"
-
-            # Number of views
-            echo "
-
-            Total number of Views in <+env.name>_<+stage.variables.DB_name>:"
-            snowsql -c connection -q "USE DATABASE <+env.name>_<+stage.variables.DB_name>; SELECT COUNT(*) AS number_of_views FROM information_schema.views WHERE table_schema != 'INFORMATION_SCHEMA';"
-
-            # Number of stages
-            echo "
-
-            Total number of Stages in <+env.name>_<+stage.variables.DB_name>:"
-            snowsql -c connection -q "USE DATABASE <+env.name>_<+stage.variables.DB_name>; SELECT COUNT(*) AS number_of_stages FROM information_schema.stages WHERE stage_schema != 'INFORMATION_SCHEMA';"
-
-            # Query Table
-            echo "
-
-            Executing command: USE DATABASE <+env.name>_<+stage.variables.DB_name>; SELECT * FROM employees;"
-            snowsql -c connection -q "USE DATABASE <+env.name>_<+stage.variables.DB_name>; SELECT * FROM employees;"
+            echo "Executing SQL queries"
+            cat <+pipeline.stages.Create_non_prod_env.spec.execution.steps.Fetch_Queries.output.outputVariables.verify_sql>
+            
+            snowsql -c connection -f <+pipeline.stages.Create_non_prod_env.spec.execution.steps.Fetch_Queries.output.outputVariables.verify_sql>
       environmentVariables: []
       outputVariables: []
       delegateSelectors: []
