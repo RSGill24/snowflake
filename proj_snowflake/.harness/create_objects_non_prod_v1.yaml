@@ -24,7 +24,7 @@ template:
             echo "Executing SQL queries"
             cat /tmp/temp_sql.sql
             
-            snowsql -c connection -f /tmp/temp_sql.sql -D object_name="<+env.name>_<+stage.variables.DB_name>" -D schema_name="<+env.name>_<+stage.variables.Schema_name>"
+            snowsql -c connection -f /tmp/temp_sql.sql
       environmentVariables: []
       outputVariables: []
       delegateSelectors: []
