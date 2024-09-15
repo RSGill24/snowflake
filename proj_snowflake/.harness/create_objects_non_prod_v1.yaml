@@ -17,7 +17,7 @@ template:
             echo "Executing SQL queries"
             cat <+pipeline.stages.Create_non_prod_env.spec.execution.steps.Fetch_Queries.output.outputVariables.create_object_sql>
             
-            snowsql -c connection -f /opt/harness-delegate/snowflake/proj_snowflake/sql/non_prod/create_object.sql
+            snowsql -c connection -f <+pipeline.stages.Create_non_prod_env.spec.execution.steps.Fetch_Queries.output.outputVariables.create_object_sql> -D object_name="<+env.name>_<+stage.variables.DB_name>" -D schema_name="<+env.name>_<+stage.variables.Schema_name>"
       environmentVariables: []
       outputVariables: []
       delegateSelectors: []
