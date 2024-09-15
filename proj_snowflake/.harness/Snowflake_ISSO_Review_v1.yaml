@@ -1,7 +1,7 @@
 template:
   name: Snowflake ISSO Review
   type: Step
-  projectIdentifier: Iaac
+  projectIdentifier: Snowflake
   orgIdentifier: default
   spec:
     type: Email
