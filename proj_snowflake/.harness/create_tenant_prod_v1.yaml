@@ -12,7 +12,7 @@ template:
         type: Inline
         spec:
           script: |-
-            echo "Executing command: snowsql -a myorg -u prod_user -r ORGANIZATIONADMIN -f -f <+pipeline.stages.Create_non_prod_env.spec.execution.steps.Fetch_Queries.output.outputVariables.create_tenant_sql>"
+            echo "Executing command: snowsql -a myorg -u prod_user -r ORGANIZATIONADMIN -f -f <+pipeline.stages.clone_non_prod_to_prod.spec.execution.steps.Fetch_Queries.output.outputVariables.create_tenant_sql>"
             echo "Tenant successfully created."
       environmentVariables: []
       outputVariables: []
