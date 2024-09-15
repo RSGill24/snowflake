@@ -1,4 +1,6 @@
-USE DATABASE {{db_name}}; 
+USE DATABASE {{db_name}};
+
+SHOW DATABASE {{db_name}}
 
 SELECT COUNT(*) AS number_of_schemas FROM information_schema.schemata WHERE schema_name != 'INFORMATION_SCHEMA';
 
@@ -8,4 +10,4 @@ SELECT COUNT(*) AS number_of_views FROM information_schema.views WHERE table_sch
 
 SELECT COUNT(*) AS number_of_stages FROM information_schema.stages WHERE stage_schema != 'INFORMATION_SCHEMA';
 
-USE DATABASE {{db_name}}; SELECT * FROM employees;
+SELECT * FROM employees;
