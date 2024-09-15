@@ -1,4 +1,4 @@
-USE DATABASE <+env.name>_<+stage.variables.DB_name>; 
+USE DATABASE &object_name; 
 
 SELECT COUNT(*) AS number_of_schemas FROM information_schema.schemata WHERE schema_name != 'INFORMATION_SCHEMA';
 
