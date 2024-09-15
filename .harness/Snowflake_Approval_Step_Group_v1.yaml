@@ -1,0 +1,57 @@
+template:
+  name: Snowflake Approval Step Group
+  type: StepGroup
+  projectIdentifier: Iaac
+  orgIdentifier: default
+  spec:
+    steps:
+      - step:
+          name: KICS Report
+          identifier: KICS_Report
+          template:
+            templateRef: Dummy_Kics_Report
+            versionLabel: v1
+      - step:
+          type: ShellScript
+          name: SonarQube Scan
+          identifier: SonarQube_Scan
+          spec:
+            shell: Bash
+            executionTarget: {}
+            source:
+              type: Inline
+              spec:
+                script: echo "Sonar Qube scanned report"
+            environmentVariables: []
+            outputVariables: []
+          timeout: 10m
+      - step:
+          name: Peer Review
+          identifier: Peer_Review
+          template:
+            templateRef: Snowflake_Peer_Review
+            versionLabel: v1
+      - step:
+          name: ISSO Review
+          identifier: ISSO_Review
+          template:
+            templateRef: Snowflake_ISSO_Review
+            versionLabel: v1
+      - step:
+          type: HarnessApproval
+          name: Approval
+          identifier: Approval
+          spec:
+            approvalMessage: Please review the following information and approve the pipeline progression
+            includePipelineExecutionHistory: true
+            isAutoRejectEnabled: false
+            approvers:
+              userGroups:
+                - account._account_all_users
+              minimumCount: 1
+              disallowPipelineExecutor: false
+            approverInputs: []
+          timeout: 1d
+    stageType: Custom
+  identifier: Snowflake_Approval_Step_Group
+  versionLabel: v1
