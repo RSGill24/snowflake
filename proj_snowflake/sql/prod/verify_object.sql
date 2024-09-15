@@ -1,4 +1,4 @@
-USE DATABASE &object_name; 
+USE DATABASE {{db_name}}; 
 
 SELECT COUNT(*) AS number_of_schemas FROM information_schema.schemata WHERE schema_name != 'INFORMATION_SCHEMA';
 
