@@ -1,5 +1,5 @@
 template:
-  name: Create Tenant non prod
+  name: Create tenant non prod
   type: Step
   projectIdentifier: Snowflake
   orgIdentifier: default
