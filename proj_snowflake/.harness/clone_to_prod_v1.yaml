@@ -12,7 +12,7 @@ template:
         type: Inline
         spec:
           script: |-
-            echo -e "[connections.connection]\naccountname = <+pipeline.variables.account_name>\nusername = <+pipeline.variables.username>\npassword = <+secrets.getValue('snowflake_password')>" > ~/.snowsql/config
+            echo -e "[connections.connection]\naccountname = <+pipeline.variables.account_name>\nusername = <+pipeline.variables.username>\npassword = <+secrets.getValue('account.snowflake_password')>" > ~/.snowsql/config
 
             # Clone DB
             echo "Executing command: CREATE DATABASE <+env.name>_<+stage.variables.DB_name> CLONE <+pipeline.stages.Create_non_prod_env.spec.env.name>_<+pipeline.stages.Create_non_prod_env.variables.DB_name>;"

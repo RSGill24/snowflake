@@ -12,7 +12,7 @@ template:
         type: Inline
         spec:
           script: |-
-            echo -e "[connections.connection]\naccountname = <+pipeline.variables.account_name>\nusername = <+pipeline.variables.username>\npassword = <+secrets.getValue('snowflake_password')>" > ~/.snowsql/config
+            echo -e "[connections.connection]\naccountname = <+pipeline.variables.account_name>\nusername = <+pipeline.variables.username>\npassword = <+secrets.getValue('account.snowflake_password')>" > ~/.snowsql/config
 
             # Drop the Table
             echo "Executing command: USE DATABASE <+env.name>_<+stage.variables.DB_name>; DROP TABLE IF EXISTS employees; DROP TABLE IF EXISTS departments; DROP TABLE IF EXISTS projects;"
