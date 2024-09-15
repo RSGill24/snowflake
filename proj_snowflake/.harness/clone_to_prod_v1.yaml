@@ -14,10 +14,22 @@ template:
           script: |-
             echo -e "[connections.connection]\naccountname = <+pipeline.variables.account_name>\nusername = <+pipeline.variables.username>\npassword = <+secrets.getValue('account.snowflake_password')>" > ~/.snowsql/config
 
-            echo "Executing SQL queries"
-            cat <+pipeline.stages.clone_non_prod_to_prod.spec.execution.steps.Fetch_Queries.output.outputVariables.clone_object_sql>
+            # Variables
+            prod_db_name="<+env.name>_<+stage.variables.DB_name>"
+            stage_db_name="<+pipeline.stages.Create_non_prod_env.spec.env.name>_<+pipeline.stages.Create_non_prod_env.variables.DB_name>"
+            prod_schema_name="<+env.name>_<+stage.variables.Schema_name>"
+            stage_schema_name="<+pipeline.stages.Create_non_prod_env.spec.env.name>_<+pipeline.stages.Create_non_prod_env.variables.Schema_name>"
             
-            snowsql -c connection -f <+pipeline.stages.clone_non_prod_to_prod.spec.execution.steps.Fetch_Queries.output.outputVariables.clone_object_sql> -D prod_db_name="<+env.name>_<+stage.variables.DB_name>" -D stage_db_name="<+pipeline.stages.Create_non_prod_env.spec.env.name>_<+pipeline.stages.Create_non_prod_env.variables.DB_name>" -D prod_schema_name="<+env.name>_<+stage.variables.Schema_name>" -D stage_schema_name="<+pipeline.stages.Create_non_prod_env.spec.env.name>_<+pipeline.stages.Create_non_prod_env.variables.Schema_name>"
+            # Replace placeholders in the SQL file
+            sed -e "s/{{prod_db_name}}/$prod_db_name/g" \
+                -e "s/{{stage_db_name}}/$stage_db_name/g" \
+                -e "s/{{prod_schema_name}}/$prod_schema_name/g" \
+                -e "s/{{stage_schema_name}}/$stage_schema_name/g" \
+                /opt/harness-delegate/snowflake/proj_snowflake/sql/prod/clone_object.sql > /tmp/temp_sql.sql
+            echo "Executing SQL queries"
+            cat /tmp/temp_sql.sql
+            
+            snowsql -c connection -f /tmp/temp_sql.sql
       environmentVariables: []
       outputVariables: []
       delegateSelectors: []
