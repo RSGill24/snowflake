@@ -18,11 +18,17 @@ template:
             if [ <+env.name> == "prod" ]; then
                 sql=<+pipeline.stages.clone_non_prod_to_prod.spec.execution.steps.Fetch_Queries.output.outputVariables.verify_sql>
             fi
+
+            # Variables
+            db_name="<+env.name>_<+stage.variables.DB_name>"
             
+            # Replace placeholders in the SQL file
+            sed -e "s/{{db_name}}/$db_name/g" \
+                $sql > /tmp/temp_sql.sql
             echo "Executing SQL queries"
-            cat $sql
+            cat /tmp/temp_sql.sql
             
-            snowsql -c connection -f $sql -D object_name="<+env.name>_<+stage.variables.DB_name>"
+            snowsql -c connection -f /tmp/temp_sql.sql
       environmentVariables: []
       outputVariables: []
       delegateSelectors: []
