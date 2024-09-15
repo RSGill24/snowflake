@@ -1,6 +1,6 @@
 USE DATABASE {{db_name}};
 
-SHOW DATABASE {{db_name}};
+SHOW TABLES;
 
 SELECT COUNT(*) AS number_of_schemas FROM information_schema.schemata WHERE schema_name != 'INFORMATION_SCHEMA';
 
