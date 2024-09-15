@@ -8,4 +8,4 @@ SELECT COUNT(*) AS number_of_views FROM information_schema.views WHERE table_sch
 
 SELECT COUNT(*) AS number_of_stages FROM information_schema.stages WHERE stage_schema != 'INFORMATION_SCHEMA';
 
-SELECT * FROM employees;
+USE DATABASE {{db_name}}; SELECT * FROM employees;
