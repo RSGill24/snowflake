@@ -1,7 +1,7 @@
 template:
   name: Dummy Kics Report
   type: Step
-  projectIdentifier: Iaac
+  projectIdentifier: Snowflake
   orgIdentifier: default
   spec:
     type: ShellScript
