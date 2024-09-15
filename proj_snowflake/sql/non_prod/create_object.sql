@@ -22,6 +22,6 @@ INSERT INTO projects (proj_id, proj_name, budget) VALUES
 (1001, 'Project A', 50000),
 (1002, 'Project B', 75000);
 
-CREATE VIEW senior_employee AS SELECT name, department FROM employees WHERE salary > 90000
+CREATE VIEW senior_employee AS SELECT name, department FROM employees WHERE salary > 90000;
 
 CREATE STAGE my_s3_stage URL = 's3://my_bucket/data' CREDENTIALS = (AWS_KEY_ID = 'YOUR_AWS_KEY' AWS_SECRET_KEY = 'YOUR_SECRET_KEY');
