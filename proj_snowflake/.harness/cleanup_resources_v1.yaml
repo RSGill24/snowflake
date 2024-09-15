@@ -1,7 +1,7 @@
 template:
   name: cleanup resources
   type: Step
-  projectIdentifier: Iaac
+  projectIdentifier: Snowflake
   orgIdentifier: default
   spec:
     type: ShellScript
