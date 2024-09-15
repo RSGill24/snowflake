@@ -1,0 +1,20 @@
+template:
+  name: Snowflake Peer Review
+  type: Step
+  projectIdentifier: Iaac
+  orgIdentifier: default
+  spec:
+    type: Email
+    spec:
+      to: rajindergill2024@gmail.com
+      cc: ""
+      subject: Peer Plan approval step
+      body: |-
+        Dear Stakeholder,
+
+        Kindly review the non prod database as we are planning to migrate it to prod.
+
+        Regards
+    timeout: 10m
+  identifier: Snowflake_Peer_Review
+  versionLabel: v1

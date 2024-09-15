@@ -1,0 +1,47 @@
+template:
+  name: verify resource script
+  type: Step
+  projectIdentifier: Iaac
+  orgIdentifier: default
+  spec:
+    type: ShellScript
+    spec:
+      shell: Bash
+      executionTarget: {}
+      source:
+        type: Inline
+        spec:
+          script: |-
+            # Number of schemas
+            echo "Total number of schemas in <+env.name>_<+stage.variables.DB_name>:"
+            snowsql -c connection -q "USE DATABASE <+env.name>_<+stage.variables.DB_name>; SELECT COUNT(*) AS number_of_schemas FROM information_schema.schemata WHERE schema_name != 'INFORMATION_SCHEMA';"
+
+            # Number of tables
+            echo "
+
+            Total number of table in <+env.name>_<+stage.variables.DB_name>:"
+            snowsql -c connection -q "USE DATABASE <+env.name>_<+stage.variables.DB_name>; SELECT COUNT(*) AS number_of_tables FROM information_schema.tables WHERE table_schema != 'INFORMATION_SCHEMA';"
+
+            # Number of views
+            echo "
+
+            Total number of Views in <+env.name>_<+stage.variables.DB_name>:"
+            snowsql -c connection -q "USE DATABASE <+env.name>_<+stage.variables.DB_name>; SELECT COUNT(*) AS number_of_views FROM information_schema.views WHERE table_schema != 'INFORMATION_SCHEMA';"
+
+            # Number of stages
+            echo "
+
+            Total number of Stages in <+env.name>_<+stage.variables.DB_name>:"
+            snowsql -c connection -q "USE DATABASE <+env.name>_<+stage.variables.DB_name>; SELECT COUNT(*) AS number_of_stages FROM information_schema.stages WHERE stage_schema != 'INFORMATION_SCHEMA';"
+
+            # Query Table
+            echo "
+
+            Executing command: USE DATABASE <+env.name>_<+stage.variables.DB_name>; SELECT * FROM employees;"
+            snowsql -c connection -q "USE DATABASE <+env.name>_<+stage.variables.DB_name>; SELECT * FROM employees;"
+      environmentVariables: []
+      outputVariables: []
+      delegateSelectors: []
+    timeout: 10m
+  identifier: verify_resource_script
+  versionLabel: v1

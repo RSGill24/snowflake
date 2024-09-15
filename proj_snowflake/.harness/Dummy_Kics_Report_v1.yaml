@@ -1,0 +1,20 @@
+template:
+  name: Dummy Kics Report
+  type: Step
+  projectIdentifier: Iaac
+  orgIdentifier: default
+  spec:
+    type: ShellScript
+    spec:
+      shell: Bash
+      executionTarget: {}
+      source:
+        type: Inline
+        spec:
+          script: echo "KICS Report"
+      environmentVariables: []
+      outputVariables: []
+      delegateSelectors: []
+    timeout: 10m
+  identifier: Dummy_Kics_Report
+  versionLabel: v1

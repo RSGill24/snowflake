@@ -1,0 +1,23 @@
+template:
+  name: create tenant prod
+  type: Step
+  projectIdentifier: Iaac
+  orgIdentifier: default
+  spec:
+    type: ShellScript
+    spec:
+      shell: Bash
+      executionTarget: {}
+      source:
+        type: Inline
+        spec:
+          script: |-
+            echo "Executing command: snowsql -a myorg -u prod_user -r ORGANIZATIONADMIN"
+            echo "Executing command: snowsql -q CREATE ACCOUNT prod_account ADMIN_NAME='new_admin' ADMIN_PASSWORD='SecurePassword!' TYPE=ENTERPRISE WAREHOUSE_SIZE=XSMALL;"
+            echo "Tenant successfully created."
+      environmentVariables: []
+      outputVariables: []
+      delegateSelectors: []
+    timeout: 10m
+  identifier: create_tenant_prod
+  versionLabel: v1
