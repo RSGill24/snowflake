@@ -1,7 +1,7 @@
 template:
   name: Snowflake Approval Step Group
   type: StepGroup
-  projectIdentifier: Iaac
+  projectIdentifier: Snowflake
   orgIdentifier: default
   spec:
     steps:
