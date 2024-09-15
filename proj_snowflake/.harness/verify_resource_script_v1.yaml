@@ -12,10 +12,17 @@ template:
         type: Inline
         spec:
           script: |-
-            echo "Executing SQL queries"
-            cat <+pipeline.stages.Create_non_prod_env.spec.execution.steps.Fetch_Queries.output.outputVariables.verify_sql>
+            name="<+pipelines.stages.Create_non_prod_env.identifier>"
+
+            # Check if env_name variable is set to "prod"
+            if [ "<+env.name>" == "prod" ]; then
+                name="<+pipelines.stages.clone_non_prod_to_prod.identifier>"
+            fi
             
-            snowsql -c connection -f <+pipeline.stages.Create_non_prod_env.spec.execution.steps.Fetch_Queries.output.outputVariables.verify_sql>
+            echo "Executing SQL queries"
+            cat <+pipeline.stages.$name.spec.execution.steps.Fetch_Queries.output.outputVariables.verify_sql>
+            
+            snowsql -c connection -f <+pipeline.stages.$name.spec.execution.steps.Fetch_Queries.output.outputVariables.verify_sql>
       environmentVariables: []
       outputVariables: []
       delegateSelectors: []
