@@ -12,8 +12,7 @@ template:
         type: Inline
         spec:
           script: |-
-            echo "Executing command: snowsql -a myorg -u non_prod_user -r ORGANIZATIONADMIN"
-            echo "Executing command: snowsql -q CREATE ACCOUNT non_prod_account ADMIN_NAME='new_admin' ADMIN_PASSWORD='SecurePassword!' TYPE=ENTERPRISE WAREHOUSE_SIZE=XSMALL;"
+            echo "Executing command: snowsql -a myorg -u non_prod_user -r ORGANIZATIONADMIN -f <+pipeline.stages.Create_non_prod_env.spec.execution.steps.Fetch_Queries.output.outputVariables.create_tenant_sql>"
             echo "Tenant successfully created."
       environmentVariables: []
       outputVariables: []
