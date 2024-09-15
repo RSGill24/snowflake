@@ -1,8 +1,8 @@
-CREATE DATABASE <+env.name>_<+stage.variables.DB_name>;
+CREATE DATABASE &object_name;
 
-USE DATABASE <+env.name>_<+stage.variables.DB_name>; 
+USE DATABASE &object_name; 
 
-CREATE SCHEMA <+env.name>_<+stage.variables.Schema_name>;
+CREATE SCHEMA &schema_name;
 
 CREATE TABLE employees (id INT, name STRING, department STRING, salary NUMBER);
 CREATE TABLE departments (dept_id INT, dept_name STRING, manager STRING);
