@@ -22,7 +22,7 @@ template:
             echo "Executing SQL queries"
             cat $sql
             
-            snowsql -c connection -f $sql
+            snowsql -c connection -f $sql -D object_name="<+env.name>_<+stage.variables.DB_name>"
       environmentVariables: []
       outputVariables: []
       delegateSelectors: []
