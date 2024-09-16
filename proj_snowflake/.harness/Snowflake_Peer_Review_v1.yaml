@@ -14,6 +14,8 @@ template:
 
         Kindly review the non prod database as we are planning to migrate it to prod.
 
+        Pipeline: https://app.harness.io/ng/account/cTDdNMGnT6Sn7-RYrBhF6A/module/cd/orgs/default/projects/Snowflake/pipelines/SnowFlake_Clone/pipeline-studio?storeType=INLINE
+
         Regards
     timeout: 10m
   identifier: Snowflake_Peer_Review
